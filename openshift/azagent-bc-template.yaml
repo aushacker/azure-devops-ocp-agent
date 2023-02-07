@@ -16,12 +16,16 @@ parameters:
   name: GIT_URL
   required: true
   value: https://github.com/bfarr-rh/azure-devops-ocp-agent.git
+- description: Dockerfile selection
+  name: DOCKERFILE
+  required: true
+  value: Dockerfile
 - description: OpenShift client binary version to install
   name: OPENSHIFT_VERSION
-  value: "4.9.7"
+  value: "4.12.2"
 - description: Azure agent install version
   name: AZP_AGENT_VERSION
-  value: "2.187.2"
+  value: "2.214.1"
 objects:
 - apiVersion: image.openshift.io/v1
   kind: ImageStream
@@ -51,7 +55,7 @@ objects:
         name: azure-devops-ocp-agent:latest
     strategy:
       dockerStrategy:
-        dockerfilePath: Dockerfile
+        dockerfilePath: ${DOCKERFILE}
         imageOptimizationPolicy: SkipLayers
         buildArgs:
           - name: OPENSHIFT_VERSION

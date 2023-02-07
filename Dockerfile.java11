@@ -19,8 +19,7 @@ ENV _BUILDAH_STARTED_IN_USERNS="" \
 USER root
 
 # Setup for azure and tools
-RUN dnf update -y && \
-    dnf install -y --setopt=tsflags=nodocs git skopeo podman-docker --exclude container-selinux && \
+RUN dnf --setopt=tsflags=nodocs install -y git java-11-openjdk-devel maven podman-docker skopeo && \
     dnf clean all && \
     chown -R podman:0 /home/podman && \
     chmod -R 775 /home/podman && \
@@ -36,6 +35,12 @@ RUN dnf update -y && \
     mkdir -p "$AZP_WORK" && \
     mkdir -p /azp/agent/_diag && \
     mkdir -p /usr/local/bin
+
+ENV JAVA_HOME="/usr/lib/jvm/java-11" \
+    JAVA_VENDOR="openjdk" \
+    JAVA_VERSION="11"
+# Declare the agent's capabilities, this alows the agent to be used for Java 11 builds
+ENV JAVA_HOME_11_X64="/usr/lib/jvm/java-11"
 
 WORKDIR /azp/agent
 
