@@ -40,7 +40,7 @@ RUN dnf update -y && \
 ENV JAVA_HOME="/usr/lib/jvm/java-11" \
     JAVA_VENDOR="openjdk" \
     JAVA_VERSION="11"
-# Declare the agent's capabilities, this alows the agent to be used for Java 11 builds
+# Declare the agent's capabilities to meet the ADO maven task demand
 ENV JAVA_HOME_11_X64="/usr/lib/jvm/java-11"
 
 WORKDIR /azp/agent
