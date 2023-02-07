@@ -19,7 +19,8 @@ ENV _BUILDAH_STARTED_IN_USERNS="" \
 USER root
 
 # Setup for azure and tools
-RUN dnf --setopt=tsflags=nodocs install -y git java-11-openjdk-devel maven podman-docker skopeo && \
+RUN dnf update -y && \
+    dnf --setopt=tsflags=nodocs install -y git java-11-openjdk-devel maven podman-docker skopeo && \
     dnf clean all && \
     chown -R podman:0 /home/podman && \
     chmod -R 775 /home/podman && \
